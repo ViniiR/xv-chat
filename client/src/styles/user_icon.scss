@@ -1,0 +1,16 @@
+    .user-icon-toggle-btn {
+        border: none;
+        width: max-content;
+        height: max-content;
+        display: grid;
+        background-color: transparent;
+        place-content: center;
+        & > img {
+            border-radius: 50%;
+            background-color: white;
+            width: 100%;
+        }
+        .slide-menu-icon {
+            max-width: 35px;
+        }
+    }

@@ -1,0 +1,60 @@
+.feed {
+    height: 100%;
+    width: 100dvw;
+    padding: 10px;
+    max-height: 100%;
+    max-width: 100%;
+    overflow-y: scroll;
+    // overscroll-behavior-y: auto;
+    //TODO:
+    // scrollbar-gutter: stable;
+    // scrollbar-width: 10px;
+    // scrollbar-track-color: black;
+    // scrollbar-color: black;
+    // scrollbar-base-color: black;
+    // scrollbar-arrow-color: black;
+    .pull-refresh {
+        height: 50px;
+        width: 100%;
+        background-color: red;
+        position: absolute;
+        left: 0;
+        top: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9;
+        & > div {
+            background-color: blue;
+            width: 30px;
+            height: 30px;
+            border-radius: 50px;
+        }
+    }
+    .refetch-trigger {
+        height: 50px;
+        width: 100%;
+        background-color: none;
+    }
+}
+.feed-merge-scroll {
+    overflow-y: hidden !important;
+    // min-height: max-content !important;
+    height: max-content !important;
+    min-height: 300px !important;
+    // height: 100%;
+    // max-height: 100%;
+    // max-width: 100dvh;
+    // position: relative;
+}
+.feed-merge-scroll-relative {
+    position: relative;
+}
+
+.feed-dark {
+    background-color: black;
+}
+
+.feed-light {
+    background-color: white;
+}

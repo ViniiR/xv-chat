@@ -1,0 +1,34 @@
+    .footer {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        z-index: 1;
+        .home-page-btn {
+            width: 30%;
+            max-width: 100px;
+            height: 35px;
+            background-color: transparent;
+            border: none;
+
+            &:active {
+            }
+            // .btn-icon {
+            // }
+            // .btn-icon-dark {
+            //     fill: rgb(255, 255, 255);
+            // }
+            // .btn-icon-light {
+            //     fill: rgb(0, 0, 0);
+            // }
+        }
+    }
+    .footer-dark {
+        background: black;
+        border-top: 1px solid white;
+    }
+    .footer-light {
+        background: white;
+        border-top: 1px solid black;
+    }

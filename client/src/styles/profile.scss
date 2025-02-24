@@ -1,0 +1,190 @@
+.disable-profile-fs-scroll {
+    max-height: 100vh !important;
+    overflow-y: hidden !important;
+}
+.profile-fs {
+    min-height: 100vh;
+    width: 100vw;
+    height: max-content;
+    max-width: 100%;
+    // overflow: hidden;
+    overflow-x: hidden;
+    // overflow-y: scroll !important;
+    font-weight: 500;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    .image-stealer-fullscreen {
+        height: 100vh !important;
+    }
+    .profile-header {
+        position: sticky;
+        top: 0;
+        padding: 10px;
+        height: 60px;
+        border-bottom: 1px solid white;
+        display: flex;
+        z-index: 50;
+        .back-btn {
+            background: transparent;
+            border: none;
+            width: 40px;
+        }
+    }
+    .profile-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 60px 60px 100px 50px;
+        padding: 20px;
+        max-height: 45vh;
+        height: 100%;
+        width: 100%;
+        .user-icon {
+            grid-row: 1/2;
+            grid-column: 1/2;
+            width: 50px;
+        }
+        .names-sect {
+            grid-row: 2/3;
+            grid-column: 1/2;
+            display: flex;
+            flex-direction: column;
+            height: max-content;
+            .user-name {
+                font-size: 1.1rem;
+            }
+            .user-at {
+                color: gray;
+                font-size: 0.9rem;
+            }
+        }
+        .follow-btn {
+            grid-column: 3/4;
+            font-weight: 600;
+            font-size: 0.9rem;
+            grid-row: 1/2;
+            width: 90px;
+            height: 40px;
+            border-radius: 50px;
+            padding: 5px;
+            margin-left: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .not-following {
+            font-weight: 700;
+        }
+        .bio {
+            width: 100%;
+            max-height: 100px;
+            grid-row: 3/4;
+            border: none;
+            background-color: transparent;
+            resize: none;
+            grid-column: 1/4;
+            font-size: 1rem;
+            text-align: justify;
+            text-overflow: ellipsis;
+            white-space: no-wrap;
+        }
+        .following-count {
+            grid-column: 1/2;
+        }
+        .followers-count {
+            grid-column: 2/3;
+        }
+        .following-count,
+        .followers-count {
+            grid-row: 4/5;
+            gap: 5px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            color: gray;
+            & > span {
+                font-weight: 600;
+            }
+        }
+    }
+}
+.profile-dark {
+    background-color: black !important;
+    color: white !important;
+    .profile-header {
+        background-color: black !important;
+        border-bottom: 1px solid white;
+    }
+    .profile-body {
+        border-bottom: 1px solid white;
+        .following-count,
+        .followers-count {
+            & > span {
+                color: white;
+            }
+        }
+        .bio {
+            color: white;
+        }
+        .following {
+            color: white;
+            background: transparent;
+            border: 3px solid white; //theme dep
+            &:active {
+                background: #212121;
+            }
+        }
+        .not-following {
+            color: black;
+            background: white;
+            border: 3px solid white; //theme dep
+            &:active {
+                background: #d6d6d6;
+                border-color: #d6d6d6;
+            }
+        }
+    }
+}
+.profile-light {
+    background-color: white;
+    color: black !important;
+    .profile-header {
+        background-color: white !important;
+        border-bottom: 1px solid black;
+    }
+    .profile-body {
+        border-bottom: 1px solid black;
+        .following-count,
+        .followers-count {
+            & > span {
+                color: black;
+            }
+        }
+        .bio {
+            color: black;
+        }
+        .following {
+            color: black;
+            background: transparent;
+            border: 3px solid black; //theme dep
+            &:active {
+                background: #dbdbdb;
+            }
+        }
+        .not-following {
+            color: white;
+            background: black;
+            border: 3px solid black; //theme dep
+            &:active {
+                background: #1f1f1f;
+                border-color: #1f1f1f;
+            }
+        }
+    }
+}
+
+.btn-icon-dark {
+    fill: rgb(255, 255, 255);
+}
+.btn-icon-light {
+    fill: rgb(0, 0, 0);
+}

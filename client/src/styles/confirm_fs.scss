@@ -1,0 +1,76 @@
+.confirm-wrapper {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+    display: none;
+    place-content: center;
+    .revert-colors {
+        .ok-btn {
+            background-color: red !important;
+            &:active {
+                background-color: #d43131 !important;
+            }
+        }
+        .cancel-btn {
+            background-color: blue !important;
+            &:active {
+                background-color: #3136d4 !important;
+            }
+        }
+    }
+    .confirm {
+        width: 65vw;
+        height: 50vh;
+        border-radius: 5px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        border: 1px solid white;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 9fr 1.5fr;
+        column-gap: 5px;
+        & > button {
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            grid-row: 2/3;
+            font-weight: 500;
+            color: white;
+            font-size: 1rem;
+        }
+        .ok-btn {
+            background-color: blue;
+            &:active {
+                background-color: #3136d4;
+            }
+        }
+        .cancel-btn {
+            background-color: red;
+            &:active {
+                background-color: #d43131;
+            }
+        }
+        & > strong {
+            grid-column: 1/3;
+            font-weight: 500;
+            display: grid;
+            text-wrap: pretty;
+            place-content: center;
+            text-align: center;
+            grid-row: 1/2;
+            height: 100%;
+        }
+    }
+}
+.light-confirm .confirm {
+    background: white !important;
+    color: black;
+}
+.dark-confirm .confirm {
+    background: black !important;
+    color: white;
+}

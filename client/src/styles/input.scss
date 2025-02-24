@@ -1,0 +1,36 @@
+    .input-wrapper {
+        width: 100%;
+        display: grid;
+        height: 60px;
+        row-gap: 15px;
+        position: relative;
+        & > label {
+            font-weight: 500;
+            height: 20px;
+        }
+        & > input {
+            height: 40px;
+            border: none;
+            background: none;
+            border-bottom: 3px solid #3750eb;
+            font-size: 1.1rem;
+            padding: 10px;
+        }
+        & > img {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            z-index: inherit;
+            right: 5px;
+            top: 5px;
+        }
+        & > .invalid-warnings {
+            color: #d9291c;
+            text-align: center;
+            font-size: .95rem;
+            width: 100%;
+            text-align: center;
+            height: 50px;
+            padding-bottom: 10px;
+        }
+    }

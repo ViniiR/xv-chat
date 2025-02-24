@@ -1,0 +1,56 @@
+    .fs-menu {
+        position: absolute;
+        top: 0;
+        left: auto;
+        right: -100%;
+        flex-direction: column;
+        // height: 100vh;
+        height: 100dvh;
+        width: 100vw;
+        z-index: 15;
+
+        transition: right 0.2s linear;
+        .fs-header {
+            padding: 10px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            gap: 5%;
+            .fs-back-btn {
+                height: 40px;
+                width: 40px;
+                border: none;
+                background: transparent;
+            }
+
+            .title-section {
+                .fs-title {
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+
+        .fs-header-dark {
+            border-bottom: 1px solid white;
+        }
+        .fs-header-light {
+            border-bottom: 1px solid black;
+        }
+
+        .fs-body {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            list-style: none;
+        }
+    }
+    .fs-menu-dark {
+        background: black;
+        color: white;
+    }
+    .fs-menu-light {
+        background: white;
+        color: black;
+    }

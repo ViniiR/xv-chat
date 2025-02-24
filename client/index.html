@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xv</title>
+</head>
+    <style>
+        .html-div-storage-alert {
+            width: 100%;
+            color: black;
+            background-color: white;
+            height: max-content;
+            display: flex;
+            justify-content: left;
+            font-family: sans-serif;
+            font-size: 1rem;
+        }
+    </style>
+<body>
+    <div id="root"></div>
+    <script>
+        (async function() {
+            const root = document.getElementById("root")
+            const STORAGE_MESSAGE =
+                `This website needs to save browser data, enable it on
+                Settings > Site Settings > On-device site data`;
+            try {
+                if (!(await document.hasStorageAccess())) {
+                    const div = document.createElement("div");
+                    div.classList.add("html-div-storage-alert");
+                    div.innerText = STORAGE_MESSAGE;
+                    root.appendChild(div);
+                }
+            } catch (_e) {
+                console.error(_e);
+            }
+        })();
+    </script>
+</body>
+</html>
