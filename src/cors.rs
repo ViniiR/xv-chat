@@ -18,7 +18,10 @@ impl Fairing for Cors {
             dotenv::var("ALLOWED_CLIENT_ORIGIN_URL")
                 .expect("ALLOWED_CLIENT_ORIGIN_URL not defined"),
         ));
-        response.set_header(Header::new("Access-Control-Allow-Headers", "Content-Type"));
+        response.set_header(Header::new(
+            "Access-Control-Allow-Headers",
+            "Origin, Accept, Content-Type",
+        ));
         response.set_header(Header::new(
             "Access-Control-Allow-Methods",
             "GET, POST, PUT, DELETE, PATCH, OPTIONS",

@@ -136,7 +136,7 @@ export default function FSPost({}: FSPostProps) {
         async function fetchComments() {
             setIsLoadingComments(true);
             try {
-                const url = `${process.env.API_URL_ROOT}${process.env.FETCH_COMMENTS_PATH}/${params.postId}`;
+                const url = `${process.env.API_URL_ROOT}${API_ROUTES.FETCH_COMMENTS_PATH}/${params.postId}`;
                 const res = await fetch(url, {
                     method: "GET",
                     mode: "cors",
@@ -177,7 +177,7 @@ export default function FSPost({}: FSPostProps) {
     useEffect(() => {
         async function fetchUserAt() {
             try {
-                const url = `${process.env.API_URL_ROOT}${process.env.DATA_USER_PATH}`;
+                const url = `${process.env.API_URL_ROOT}${API_ROUTES.DATA_USER_PATH}`;
                 const res = await fetch(url, {
                     method: "GET",
                     mode: "cors",
@@ -232,7 +232,7 @@ export default function FSPost({}: FSPostProps) {
         }
 
         try {
-            const url = `${process.env.API_URL_ROOT}${process.env.LIKE_PATH}`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.LIKE_PATH}`;
             const res = await fetch(url, {
                 method: "PATCH",
                 mode: "cors",
@@ -263,7 +263,7 @@ export default function FSPost({}: FSPostProps) {
     async function comment() {
         animatePostWriter(false);
         try {
-            const url = `${process.env.API_URL_ROOT}${process.env.COMMENT_POST_PATH}/${postDetails.postId}`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.COMMENT_POST_PATH}/${postDetails.postId}`;
             const res = await fetch(url, {
                 method: "PATCH",
                 mode: "cors",
@@ -344,7 +344,7 @@ export default function FSPost({}: FSPostProps) {
 
     async function deletePost() {
         try {
-            const url = `${process.env.API_URL_ROOT}${process.env.DELETE_POST_PATH}/${postDetails.postId}`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.DELETE_POST_PATH}/${postDetails.postId}`;
             const res = await fetch(url, {
                 method: "DELETE",
                 credentials: "include",

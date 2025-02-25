@@ -38,9 +38,7 @@ const config = {
         new DotEnv(),
     ],
     devServer: {
-        //static: path.join(__dirname, "src/assets"),
         compress: true,
-        //historyApiFallback: true,
         historyApiFallback: {
             rewrites: [
                 {
@@ -49,9 +47,6 @@ const config = {
                 },
             ],
         },
-        //hot: true,
-        //contentBase: "./",
-        //fight against censorship 07/09/24
         port: 7924,
     },
     devtool: "inline-source-map",

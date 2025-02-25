@@ -1,34 +1,130 @@
-use std::path::PathBuf;
+use std::path::{self, PathBuf};
 
-use rocket::fs::NamedFile;
+use rocket::{
+    fs::NamedFile,
+    request::{self, FromRequest},
+    response::Responder,
+    Request,
+};
 
 #[get("/", rank = 0)]
-pub async fn index() -> Option<NamedFile> {
-    NamedFile::open("client_dist/index.html").await.ok()
+pub async fn index(gzip: AcceptGzip) -> ResponseFile {
+    if gzip.0 {
+        ResponseFile::GzipHtml(GzipHtmlFile(get_file("index.html.gz").await))
+    } else {
+        ResponseFile::Normal(get_file("index.html").await)
+    }
 }
 
 #[get("/main.bundle.js", rank = 1)]
-pub async fn bundle() -> Option<NamedFile> {
-    NamedFile::open("client_dist/main.bundle.js").await.ok()
+pub async fn bundle(gzip: AcceptGzip) -> ResponseFile {
+    if gzip.0 {
+        ResponseFile::GzipJs(GzipJsFile(get_file("main.bundle.js.gz").await))
+    } else {
+        ResponseFile::Normal(get_file("main.bundle.js").await)
+    }
 }
 
-#[get("/<file>", rank = 2)]
-pub async fn file(file: PathBuf) -> Option<NamedFile> {
+#[get("/<file..>", rank = 2)]
+pub async fn file(file: PathBuf, gzip: AcceptGzip) -> ResponseFile {
     let Some(ext) = file.extension() else {
-        return NamedFile::open("client_dist/index.html").await.ok();
+        return if gzip.0 {
+            ResponseFile::GzipHtml(GzipHtmlFile(get_file("index.html.gz").await))
+        } else {
+            ResponseFile::Normal(get_file("index.html").await)
+        };
     };
 
+    if !file_exists(file.to_str().unwrap_or("")) {
+        return ResponseFile::Normal(get_file("index.html").await);
+    }
     match ext.to_str().expect("no file extension") {
-        "svg" | "jpeg" | "jpg" | "png" | "ico" | "gif" => {
-            NamedFile::open(format!("client_dist/{}", file.to_str().expect("no file")))
-                .await
-                .ok()
+        "svg" => ResponseFile::GzipSvg(GzipSvgFile(
+            get_file(&format!("{}.gz", file.to_str().unwrap_or(""))).await,
+        )),
+        "jpeg" | "jpg" | "png" | "ico" | "gif" => {
+            ResponseFile::Normal(get_file(file.to_str().unwrap_or("")).await)
         }
         _ => {
+            eprintln!(
+                "this might be useful filename: {}",
+                &file.to_str().unwrap_or("no_name")
+            );
             todo!("add 404 page");
-            NamedFile::open(format!("client_dist/{}", file.to_str().expect("no file")))
-                .await
-                .ok()
+            //NamedFile::open(format!("client_dist/{}", file.to_str().expect("no file")))
+            //    .await
+            //    .ok()
         }
     }
+}
+
+#[derive(Responder)]
+pub enum ResponseFile {
+    GzipJs(GzipJsFile),
+    GzipHtml(GzipHtmlFile),
+    GzipSvg(GzipSvgFile),
+    Normal(Option<NamedFile>),
+}
+
+pub struct GzipJsFile(Option<NamedFile>);
+pub struct GzipHtmlFile(Option<NamedFile>);
+pub struct GzipSvgFile(Option<NamedFile>);
+
+impl<'r> Responder<'r, 'static> for GzipJsFile {
+    fn respond_to(self, request: &'r rocket::Request<'_>) -> rocket::response::Result<'static> {
+        let mut res = self.0.respond_to(request)?;
+        res.set_raw_header("Content-Encoding", "gzip");
+        res.set_raw_header("Content-Type", "text/javascript");
+        Ok(res)
+    }
+}
+
+impl<'r> Responder<'r, 'static> for GzipHtmlFile {
+    fn respond_to(self, request: &'r rocket::Request<'_>) -> rocket::response::Result<'static> {
+        let mut res = self.0.respond_to(request)?;
+        res.set_raw_header("Content-Encoding", "gzip");
+        res.set_raw_header("Content-Type", "text/html; charset=utf-8");
+        Ok(res)
+    }
+}
+
+impl<'r> Responder<'r, 'static> for GzipSvgFile {
+    fn respond_to(self, request: &'r rocket::Request<'_>) -> rocket::response::Result<'static> {
+        let mut res = self.0.respond_to(request)?;
+        res.set_raw_header("Content-Encoding", "gzip");
+        res.set_raw_header("Content-Type", "image/svg+xml");
+        Ok(res)
+    }
+}
+
+#[derive()]
+pub struct AcceptGzip(bool);
+
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for AcceptGzip {
+    type Error = &'r str;
+    async fn from_request(req: &'r Request<'_>) -> request::Outcome<Self, Self::Error> {
+        match req.headers().get_one("Accept-Encoding") {
+            Some(h) => {
+                if h.contains("gzip") {
+                    request::Outcome::Success(AcceptGzip(true))
+                } else {
+                    request::Outcome::Success(AcceptGzip(false))
+                }
+            }
+            None => request::Outcome::Success(AcceptGzip(false)),
+        }
+    }
+}
+
+/// must not include file_path
+async fn get_file(file_name: &str) -> Option<NamedFile> {
+    NamedFile::open(format!("client_dist/{}", file_name))
+        .await
+        .ok()
+}
+
+/// must not include file_path
+fn file_exists(file_name: &str) -> bool {
+    path::Path::new(&format!("client_dist/{}", file_name)).exists()
 }
