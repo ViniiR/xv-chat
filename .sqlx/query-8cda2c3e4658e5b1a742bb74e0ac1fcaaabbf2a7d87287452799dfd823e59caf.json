@@ -1,0 +1,64 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT text, edited, image, owner_id, post_id, likescount, commentscount, unix_time FROM posts WHERE post_id = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "text",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "edited",
+        "type_info": "Bool"
+      },
+      {
+        "ordinal": 2,
+        "name": "image",
+        "type_info": "Bytea"
+      },
+      {
+        "ordinal": 3,
+        "name": "owner_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "post_id",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 5,
+        "name": "likescount",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 6,
+        "name": "commentscount",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 7,
+        "name": "unix_time",
+        "type_info": "Int8"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Int4"
+      ]
+    },
+    "nullable": [
+      true,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false
+    ]
+  },
+  "hash": "8cda2c3e4658e5b1a742bb74e0ac1fcaaabbf2a7d87287452799dfd823e59caf"
+}

@@ -1,8 +1,0 @@
-/dist/
-/node_modules/
-
-todo
-pnpm-lock.*
-
-*.env
-*.env.test*

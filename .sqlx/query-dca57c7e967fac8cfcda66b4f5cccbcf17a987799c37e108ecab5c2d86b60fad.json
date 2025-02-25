@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE posts SET likescount = likescount + 1, likes = array_append(likes, $2) WHERE post_id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "dca57c7e967fac8cfcda66b4f5cccbcf17a987799c37e108ecab5c2d86b60fad"
+}

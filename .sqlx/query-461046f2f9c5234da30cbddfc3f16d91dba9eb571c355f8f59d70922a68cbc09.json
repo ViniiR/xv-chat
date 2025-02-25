@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE users SET followers = array_remove(followers, $2), followerscount = followerscount - 1 WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "461046f2f9c5234da30cbddfc3f16d91dba9eb571c355f8f59d70922a68cbc09"
+}

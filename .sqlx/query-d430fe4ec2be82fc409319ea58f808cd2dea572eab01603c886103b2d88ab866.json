@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE users SET following = array_append(following, $2), followingcount = followingcount + 1 WHERE id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "d430fe4ec2be82fc409319ea58f808cd2dea572eab01603c886103b2d88ab866"
+}

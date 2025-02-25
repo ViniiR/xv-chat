@@ -1,0 +1,19 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "INSERT INTO users (username, userat, email, password, followingcount, followerscount) VALUES ($1,$2,$3,$4,$5,$6);",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        "Varchar",
+        "Int4",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "fac2686637953856cf8c544fc59d3ed0acf3fffbbfa349b14f331d2da7c3ade8"
+}

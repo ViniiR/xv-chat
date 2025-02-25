@@ -8,7 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const config = {
     mode: "development",
-    entry: "/src/main.tsx",
+    entry: "/client_src/main.tsx",
     module: {
         rules: [
             {
@@ -33,7 +33,7 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(__dirname, "index.html"),
-            favicon: path.join(__dirname, "/src/assets/favicon.ico"),
+            favicon: path.join(__dirname, "/client_src/assets/favicon.ico"),
         }),
         new DotEnv(),
     ],
@@ -58,16 +58,16 @@ const config = {
     resolve: {
         extensions: [".ts", ".tsx", ".jsx", ".js"],
         alias: {
-            "@components": path.resolve(__dirname, "src/components"),
-            "@styles": path.resolve(__dirname, "src/styles"),
-            "@assets": path.resolve(__dirname, "src/assets"),
+            "@components": path.resolve(__dirname, "client_src/components"),
+            "@styles": path.resolve(__dirname, "client_src/styles"),
+            "@assets": path.resolve(__dirname, "client_src/assets"),
             "@root": path.resolve(__dirname),
-            "@src": path.resolve(__dirname, "src"),
+            "@src": path.resolve(__dirname, "client_src"),
         },
     },
     output: {
         filename: "main.bundle.js",
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, "client_dist"),
         publicPath: "/",
     },
 };

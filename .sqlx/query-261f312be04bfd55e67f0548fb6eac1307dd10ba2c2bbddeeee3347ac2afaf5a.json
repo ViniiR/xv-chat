@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "DELETE FROM comments WHERE owner_post_id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "261f312be04bfd55e67f0548fb6eac1307dd10ba2c2bbddeeee3347ac2afaf5a"
+}

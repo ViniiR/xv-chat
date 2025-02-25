@@ -1,0 +1,15 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE comments SET likescount = likescount - 1, likes = array_remove(likes, $2) WHERE post_id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int4",
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "914a11ede3af0e73b6b3d40bb29a83127bca8c93aff2f127e86caf73869821d7"
+}

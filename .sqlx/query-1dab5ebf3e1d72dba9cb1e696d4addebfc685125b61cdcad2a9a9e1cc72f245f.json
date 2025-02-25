@@ -1,0 +1,14 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "UPDATE posts SET commentscount = commentscount + 1 WHERE post_id = $1",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Left": [
+        "Int4"
+      ]
+    },
+    "nullable": []
+  },
+  "hash": "1dab5ebf3e1d72dba9cb1e696d4addebfc685125b61cdcad2a9a9e1cc72f245f"
+}

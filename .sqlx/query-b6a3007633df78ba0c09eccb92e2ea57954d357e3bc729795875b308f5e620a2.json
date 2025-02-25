@@ -1,0 +1,52 @@
+{
+  "db_name": "PostgreSQL",
+  "query": "SELECT username, userat, followingcount, followerscount, icon, bio FROM users WHERE email = $1",
+  "describe": {
+    "columns": [
+      {
+        "ordinal": 0,
+        "name": "username",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 1,
+        "name": "userat",
+        "type_info": "Varchar"
+      },
+      {
+        "ordinal": 2,
+        "name": "followingcount",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 3,
+        "name": "followerscount",
+        "type_info": "Int4"
+      },
+      {
+        "ordinal": 4,
+        "name": "icon",
+        "type_info": "Bytea"
+      },
+      {
+        "ordinal": 5,
+        "name": "bio",
+        "type_info": "Varchar"
+      }
+    ],
+    "parameters": {
+      "Left": [
+        "Text"
+      ]
+    },
+    "nullable": [
+      false,
+      false,
+      false,
+      false,
+      true,
+      true
+    ]
+  },
+  "hash": "b6a3007633df78ba0c09eccb92e2ea57954d357e3bc729795875b308f5e620a2"
+}

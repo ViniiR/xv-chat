@@ -1,5 +1,8 @@
-/target
-.env
-todo
-.shuttle*
-Secrets*.toml
+/*dist/
+/node_modules/
+/target/
+
+pnpm-lock.*
+
+*.env
+*.env.test*
