@@ -6,6 +6,7 @@ import Loading from "./Loading";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FeedStateSelector, setPosts as feedSetPosts } from "../redux/store";
+import { API_ROUTES } from "../main";
 
 interface FeedProps {
     className?: string;
@@ -109,7 +110,7 @@ export default function Feed(props: FeedProps) {
                 setPosts(postList);
             }
             try {
-                const url = `${process.env.API_URL_ROOT}${props.mainPage ? process.env.FETCH_POSTS_PATH : process.env.FETCH_USER_POSTS_PATH + (params.user ? "/" + params.user : "")}`;
+                const url = `${process.env.API_URL_ROOT}${props.mainPage ? API_ROUTES.FETCH_POSTS_PATH : API_ROUTES.FETCH_USER_POSTS_PATH + (params.user ? "/" + params.user : "")}`;
                 const res = await fetch(url, {
                     method: "GET",
                     mode: "cors",

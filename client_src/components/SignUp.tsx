@@ -5,7 +5,7 @@ import i18n from "../i18n";
 import Submit from "./Submit";
 import { Link, useNavigate } from "react-router-dom";
 import { FormikProps, useFormik } from "formik";
-import { APP_ROUTES } from "../main";
+import { API_ROUTES, APP_ROUTES } from "../main";
 import { signUpSchema, SignUpSchema } from "../schemas/signup_shema";
 import { useState } from "react";
 import emailLight from "@assets/envelope-regular-96.png";
@@ -100,7 +100,7 @@ export default function SignUp() {
         validateOnChange: false,
         async onSubmit(formData: SignUpSchema, { setStatus }) {
             try {
-                const url = `${process.env.API_URL_ROOT}${process.env.CREATE_USER_PATH}`;
+                const url = `${process.env.API_URL_ROOT}${API_ROUTES.CREATE_USER_PATH}`;
                 const res = await fetch(url, {
                     mode: "cors",
                     credentials: "include",

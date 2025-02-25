@@ -11,7 +11,7 @@ import Loading from "./Loading";
 import { UserAtContext } from "../contexts/UserAtContext";
 import PostWriter from "./PostWriter";
 import Comment from "./Comment";
-import { APP_ROUTES } from "../main";
+import { API_ROUTES, APP_ROUTES } from "../main";
 import FSWarning from "./FSWarning";
 import { useSelector } from "react-redux";
 import { FullscreenPostStateSelection } from "../redux/store";
@@ -91,7 +91,7 @@ export default function FSPost({}: FSPostProps) {
             setIsLoading(true);
         }
         async function fetchPostDetails() {
-            const url = `${process.env.API_URL_ROOT}${process.env.GET_POST_PATH}/${params.postId}`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.GET_POST_PATH}/${params.postId}`;
             try {
                 const response = await fetch(url, {
                     method: "GET",

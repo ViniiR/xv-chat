@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { APP_ROUTES } from "../main";
+import { API_ROUTES, APP_ROUTES } from "../main";
 import { useEffect, useState } from "react";
 import Loading from "./Loading";
 
@@ -8,7 +8,7 @@ export interface ProtectedRouteProps {
 }
 
 export async function authenticated(): Promise<boolean> {
-    const url = `${process.env.API_URL_ROOT}${process.env.AUTH_PATH}`;
+    const url = `${process.env.API_URL_ROOT}${API_ROUTES.AUTH_PATH}`;
     try {
         const res = await fetch(url, {
             mode: "cors",
@@ -30,15 +30,6 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
     const useDarkTheme = localStorage.getItem("theme") === "dark";
 
     useEffect(() => {
-        (async function () {
-            try {
-                await fetch(`${process.env.ORIGINAL_API_URL_ROOT}`);
-                // set global message that server will spin up
-            } catch (err) {
-                console.error(err);
-            }
-        })();
-
         async function fetchIsAuth() {
             const isAuth = await authenticated();
             setIsAuthenticated(isAuth);

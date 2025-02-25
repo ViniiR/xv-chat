@@ -3,6 +3,7 @@ import i18n from "../i18n";
 import { useEffect, useRef, useState } from "react";
 import genericIcon from "@assets/user-circle-solid-108.png";
 import { Link } from "react-router-dom";
+import { API_ROUTES } from "../main";
 
 export default function SearchFeed() {
     const [openResults, setOpenResults] = useState(false);
@@ -46,7 +47,7 @@ export default function SearchFeed() {
         }
         async function fetchQuery() {
             try {
-                const url = `${process.env.API_URL_ROOT}${process.env.QUERY_PATH}/${query.trim()}`;
+                const url = `${process.env.API_URL_ROOT}${API_ROUTES.QUERY_PATH}/${query.trim()}`;
                 const res = await fetch(url, {
                     mode: "cors",
                     credentials: "include",

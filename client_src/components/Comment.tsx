@@ -4,7 +4,7 @@ import { ThemeContext } from "../contexts/ThemeContext";
 import userIcon from "@assets/user-circle-solid-108.png";
 import { useNavigate } from "react-router-dom";
 import i18n from "../i18n";
-import { APP_ROUTES } from "../main";
+import { API_ROUTES, APP_ROUTES } from "../main";
 import { CommentDetails, getSmartHours, makeAnchor } from "./Post";
 
 interface PostProps {
@@ -41,7 +41,7 @@ export default function Comment({
         parentPost!.style.backgroundColor = "transparent";
 
         try {
-            const url = `${process.env.API_URL_ROOT}${process.env.LIKE_COMMENT_PATH}`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.LIKE_COMMENT_PATH}`;
             const res = await fetch(url, {
                 method: "PATCH",
                 mode: "cors",

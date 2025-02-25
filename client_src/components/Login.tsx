@@ -6,7 +6,7 @@ import Submit from "./Submit";
 import { Link, useNavigate } from "react-router-dom";
 import { FormikProps, useFormik } from "formik";
 import { loginSchema, LoginSchema } from "@src/schemas/login_schema";
-import { APP_ROUTES } from "../main";
+import { API_ROUTES, APP_ROUTES } from "../main";
 import { useState } from "react";
 import { translateServerErrorMessages } from "./SignUp";
 import emailLight from "@assets/envelope-regular-96.png";
@@ -24,7 +24,7 @@ export default function Login() {
         validateOnChange: false,
         async onSubmit(formData: LoginSchema, { setStatus }) {
             try {
-                const url = `${process.env.API_URL_ROOT}${process.env.LOGIN_USER_PATH}`;
+                const url = `${process.env.API_URL_ROOT}${API_ROUTES.LOGIN_USER_PATH}`;
                 const res = await fetch(url, {
                     mode: "cors",
                     method: "POST",

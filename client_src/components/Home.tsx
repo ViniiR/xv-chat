@@ -60,7 +60,7 @@ import {
 } from "./FSForm";
 import Loading from "./Loading";
 import FollowerUser, { EmptyFollowUser } from "./FollowerUser";
-import { APP_ROUTES } from "../main";
+import { API_ROUTES, APP_ROUTES } from "../main";
 import PostWriter from "./PostWriter";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -234,7 +234,7 @@ export default function Home({ setTheme, setUserAtContext }: HomeProps) {
                     followingCount: userProfileData.followingCount,
                 });
             }
-            const url = `${process.env.API_URL_ROOT}${process.env.DATA_USER_PATH}`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.DATA_USER_PATH}`;
             try {
                 const res = await fetch(url, {
                     mode: "cors",

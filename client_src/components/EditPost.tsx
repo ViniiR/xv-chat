@@ -13,6 +13,7 @@ import FSWarning from "./FSWarning";
 import { useDispatch } from "react-redux";
 import { alterPostContent } from "../redux/store";
 import { goBackHistory } from "./Home";
+import { API_ROUTES } from "../main";
 
 interface EditPostProps {
     setTheme: CallableFunction;
@@ -31,7 +32,7 @@ export default function EditPost({}: EditPostProps) {
     useEffect(() => {
         setIsLoading(true);
         async function fetchPostDetails() {
-            const url = `${process.env.API_URL_ROOT}${process.env.GET_POST_PATH}/${params.postId}`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.GET_POST_PATH}/${params.postId}`;
             try {
                 const response = await fetch(url, {
                     method: "GET",
@@ -59,7 +60,7 @@ export default function EditPost({}: EditPostProps) {
     async function editPost() {
         if (blockButton) return;
         blockButton = true;
-        const url = `${process.env.API_URL_ROOT}${process.env.EDIT_POST_PATH}/${params.postId}`;
+        const url = `${process.env.API_URL_ROOT}${API_ROUTES.EDIT_POST_PATH}/${params.postId}`;
         try {
             const response = await fetch(url, {
                 method: "PATCH",

@@ -17,6 +17,7 @@ import x from "@assets/x-regular-120(2).png";
 import { useSelector } from "react-redux";
 import { UserDataState, UserDataStateSelector } from "../redux/store";
 import { goBackHistory } from "./Home";
+import { API_ROUTES } from "../main";
 
 interface EditProfileProps {
     setTheme: CallableFunction;
@@ -56,7 +57,7 @@ export default function EditProfile({}: EditProfileProps) {
             });
         }
         async function fetchUserData() {
-            const url = `${process.env.API_URL_ROOT}${process.env.DATA_USER_PATH}`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.DATA_USER_PATH}`;
             try {
                 const res = await fetch(url, {
                     mode: "cors",

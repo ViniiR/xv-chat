@@ -18,6 +18,7 @@ import {
     UserDataStateSelector,
 } from "../redux/store";
 import { goBackHistory } from "./Home";
+import { API_ROUTES } from "../main";
 
 interface ProfileProps {
     // not actually used
@@ -91,7 +92,7 @@ export default function Profile(props: ProfileProps) {
         if (lockFollowButton) return;
         lockFollowButton = true;
         try {
-            const url = `${process.env.API_URL_ROOT}${process.env.FOLLOW_USER_PATH}`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.FOLLOW_USER_PATH}`;
             const res = await fetch(url, {
                 mode: "cors",
                 method: "PATCH",

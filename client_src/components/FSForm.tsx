@@ -10,6 +10,7 @@ import {
     userAtSchema,
 } from "../schemas/data_update_schemas";
 import { translateServerErrorMessages } from "./SignUp";
+import { API_ROUTES } from "../main";
 
 interface FSFormProps {
     children?: JSX.Element[] | JSX.Element;
@@ -55,7 +56,7 @@ export function FSFormPassword({
     }) {
         setErrorBad(true);
         try {
-            const url = `${process.env.API_URL_ROOT}/user/change/password`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.CHANGE_PASSWORD_PATH}`;
             const res = await fetch(url, {
                 mode: "cors",
                 credentials: "include",
@@ -182,7 +183,7 @@ export function FSFormEmail({
     async function submitUserEmail(data: { emailField: string }) {
         setErrorBad(true);
         try {
-            const url = `${process.env.API_URL_ROOT}/user/change/email`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.CHANGE_EMAIL_PATH}`;
             const res = await fetch(url, {
                 mode: "cors",
                 credentials: "include",
@@ -288,7 +289,7 @@ export function FSFormUserAt({
     async function submitUserAt(data: { userAtField: string }) {
         setErrorBad(true);
         try {
-            const url = `${process.env.API_URL_ROOT}/user/change/user-at`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.CHANGE_USER_AT_PATH}`;
             const res = await fetch(url, {
                 mode: "cors",
                 credentials: "include",

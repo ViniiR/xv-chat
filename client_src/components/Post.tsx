@@ -4,7 +4,7 @@ import { ThemeContext } from "../contexts/ThemeContext";
 import userIcon from "@assets/user-circle-solid-108.png";
 import { useNavigate } from "react-router-dom";
 import i18n from "../i18n";
-import { APP_ROUTES } from "../main";
+import { API_ROUTES, APP_ROUTES } from "../main";
 import { UserAtContext } from "../contexts/UserAtContext";
 import { intlFormatDistance } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
@@ -100,7 +100,7 @@ export default function Post({ postDetails }: PostProps) {
         parentPost!.style.backgroundColor = "transparent";
 
         try {
-            const url = `${process.env.API_URL_ROOT}${process.env.LIKE_PATH}`;
+            const url = `${process.env.API_URL_ROOT}${API_ROUTES.LIKE_PATH}`;
             const res = await fetch(url, {
                 method: "PATCH",
                 mode: "cors",
