@@ -2,7 +2,7 @@ use core::str;
 
 use crate::auth::validate_jwt;
 use crate::database::{
-    get_client_data, get_email_from_user_at, get_followers_list, get_following_list,
+    self, get_client_data, get_email_from_user_at, get_followers_list, get_following_list,
     get_id_from_email, user_exists,
 };
 use crate::routes::types::ProfileData;
@@ -14,7 +14,7 @@ use rocket::{
 use serde::{Deserialize, Serialize};
 
 use super::types::{DataResponse, UpdatedClientUser, UpdatedFollowData};
-use super::user::ResponseComment;
+use super::user::{ResponseComment, ResponsePost};
 
 #[get("/user/profile/<user_at>", format = "application/json")]
 pub async fn get_profile_data(
@@ -334,6 +334,112 @@ pub async fn fetch_comments(
             c
         };
         response_posts.push(ResponseComment {
+            has_this_user_liked,
+            owner_id: p.owner_id,
+            post_id: p.post_id,
+            unix_time: p.unix_time.to_string(),
+            user_at: owner_data.userat,
+            username: owner_data.username,
+            likes_count: p.likescount,
+            comments_count: p.commentscount,
+            icon: if owner_data.icon.is_some() {
+                let byte_array = owner_data.icon.unwrap_or(vec![]);
+                str::from_utf8(&byte_array).unwrap_or("").to_string()
+            } else {
+                String::from("")
+            },
+            text: if p.text.is_some() {
+                p.text.unwrap()
+            } else {
+                String::from("")
+            },
+            image: if p.image.is_some() {
+                let byte_array = p.image.unwrap_or(vec![]);
+                str::from_utf8(&byte_array).unwrap_or("").to_string()
+            } else {
+                String::from("")
+            },
+        });
+    }
+
+    DataResponse {
+        status: Status::Ok,
+        data: Json(Ok(response_posts)),
+    }
+}
+
+#[get("/user/liked-posts/<user_at>", format = "application/json")]
+pub async fn get_profile_likes(
+    user_at: &str,
+    cookies: &CookieJar<'_>,
+) -> DataResponse<Result<Vec<ResponsePost>, &'static str>> {
+    let pool = database::connect_db().await;
+
+    let mut response_posts: Vec<ResponsePost> = vec![];
+
+    let mut owner_id: Option<i32> = None;
+
+    if let Some(jwt) = cookies.get_private("auth_key") {
+        if let Ok(s) = validate_jwt(jwt.value()).await {
+            owner_id = Some(s.id);
+        };
+    };
+
+    let Ok(profile_email) = database::get_email_from_user_at(user_at, &pool).await else {
+        return DataResponse {
+            status: Status::Unauthorized,
+            data: Json(Err("Unauthorized")),
+        };
+    };
+
+    let Ok(profile_id) = database::get_id_from_email(&profile_email, &pool).await else {
+        return DataResponse {
+            status: Status::Unauthorized,
+            data: Json(Err("Unauthorized")),
+        };
+    };
+
+    let posts = match database::get_profile_likes(&profile_id, &pool).await {
+        Ok(p) => p,
+        Err(..) => {
+            return DataResponse {
+                status: Status::InternalServerError,
+                data: Json(Err("InternalServerError")),
+            };
+        }
+    };
+
+    for p in posts {
+        let email = match database::get_email_from_id(&p.owner_id, &pool).await {
+            Ok(e) => e,
+            Err(..) => {
+                return DataResponse {
+                    status: Status::InternalServerError,
+                    data: Json(Err("InternalServerError")),
+                };
+            }
+        };
+        let Ok(owner_data) = database::get_client_data(&email, &pool).await else {
+            return DataResponse {
+                status: Status::InternalServerError,
+                data: Json(Err("InternalServerError")),
+            };
+        };
+
+        let has_this_user_liked = if owner_id.is_none() {
+            false
+        } else {
+            let Ok(c) = database::likes_list_contains(&pool, &p.post_id, &owner_id.unwrap()).await
+            else {
+                return DataResponse {
+                    status: Status::InternalServerError,
+                    data: Json(Err("InternalServerError")),
+                };
+            };
+            c
+        };
+        response_posts.push(ResponsePost {
+            edited: p.edited,
             has_this_user_liked,
             owner_id: p.owner_id,
             post_id: p.post_id,

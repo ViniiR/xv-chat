@@ -8,8 +8,8 @@
     height: max-content;
     max-width: 100%;
     // overflow: hidden;
-    overflow-x: hidden;
     // overflow-y: scroll !important;
+    overflow-x: hidden;
     font-weight: 500;
     position: relative;
     display: flex;
@@ -106,6 +106,49 @@
             }
         }
     }
+    .profile-feed-state {
+        grid-row: 5/6;
+        grid-column: 1/4;
+        width: 100%;
+        height: 40px;
+        background-color: inherit;
+        display: flex;
+        & > button {
+            font-weight: 500;
+            font-size: 1rem;
+            color: inherit;
+            height: 100%;
+            min-width: 70px;
+            width: 100%;
+            border-color: transparent;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-width: 5px;
+            background-color: transparent;
+            &.selected {
+                border-bottom: 5px solid blue;
+            }
+        }
+    }
+    .profile-feed-slide {
+        min-height: inherit;
+        min-width: inherit;
+        height: inherit;
+        max-width: inherit;
+        overflow-x: hidden;
+        font-weight: inherit;
+        position: inherit;
+        display: inherit;
+        flex-direction: row;
+        & > .posts-feed,
+        & > .likes-feed {
+            min-width: 100% !important;
+        }
+        & > .hide-left-feed {
+            left: -100%;
+        }
+    }
 }
 .profile-dark {
     background-color: black !important;
@@ -115,7 +158,7 @@
         border-bottom: 1px solid white;
     }
     .profile-body {
-        border-bottom: 1px solid white;
+        // border-bottom: 1px solid white;
         .following-count,
         .followers-count {
             & > span {
@@ -143,6 +186,9 @@
             }
         }
     }
+    .profile-feed-state {
+        border-bottom: 1px solid white;
+    }
 }
 .profile-light {
     background-color: white;
@@ -152,7 +198,7 @@
         border-bottom: 1px solid black;
     }
     .profile-body {
-        border-bottom: 1px solid black;
+        // border-bottom: 1px solid black;
         .following-count,
         .followers-count {
             & > span {
@@ -179,6 +225,9 @@
                 border-color: #1f1f1f;
             }
         }
+    }
+    .profile-feed-state {
+        border-bottom: 1px solid black;
     }
 }
 

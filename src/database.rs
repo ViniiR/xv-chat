@@ -745,3 +745,8 @@ pub async fn edit_post(
     .await?;
     Ok(())
 }
+
+pub async fn get_profile_likes(id: &i32, pool: &Pool<Postgres>) -> Result<Vec<Post>, Error> {
+    let res = sqlx::query_as!(Post,"SELECT text, image, owner_id, post_id, likescount, commentscount, unix_time, edited FROM posts WHERE $1 = ANY(likes) ORDER BY unix_time DESC", id).fetch_all(pool).await?;
+    Ok(res)
+}

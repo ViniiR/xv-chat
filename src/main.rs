@@ -221,6 +221,7 @@ async fn rocket() -> _ {
                 routes::user::comment,
                 routes::user::delete_post,
                 routes::user::delete_comment,
+                routes::user_get::get_profile_likes
             ],
         )
         .mount(

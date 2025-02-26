@@ -25,6 +25,11 @@ interface ProfileProps {
     setUserAtContext: CallableFunction;
 }
 
+enum SelectedField {
+    Posts,
+    Likes,
+}
+
 export default function Profile(props: ProfileProps) {
     const useDarkTheme = useContext(ThemeContext) === "dark";
     const navigateTo = useNavigate();
@@ -64,6 +69,26 @@ export default function Profile(props: ProfileProps) {
         (state) => state.userData.value,
     );
     const dispatch = useDispatch();
+    const [selectedFeed, setSelectedField] = useState(SelectedField.Posts);
+    const postsBtnRef = useRef<HTMLButtonElement>(null);
+    const likesBtnRef = useRef<HTMLButtonElement>(null);
+    const profileFeedSlideRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!postsBtnRef.current || !likesBtnRef.current) return;
+        switch (selectedFeed) {
+            case SelectedField.Posts:
+                postsBtnRef.current!.classList.add("selected");
+                likesBtnRef.current!.classList.remove("selected");
+                break;
+            case SelectedField.Likes:
+                likesBtnRef.current!.classList.add("selected");
+                postsBtnRef.current!.classList.remove("selected");
+                break;
+            default:
+                break;
+        }
+    }, [selectedFeed]);
 
     useEffect(() => {
         if (userProfileData.userAt === params.user) {
@@ -251,11 +276,11 @@ export default function Profile(props: ProfileProps) {
                         );
                     }
                 } else {
-                    navigateTo(APP_ROUTES.NOT_FOUND)
+                    navigateTo(APP_ROUTES.NOT_FOUND);
                 }
             } catch (err) {
                 console.error("unable to connect to server");
-                navigateTo(APP_ROUTES.NOT_FOUND)
+                navigateTo(APP_ROUTES.NOT_FOUND);
             } finally {
                 setIsLoading(false);
             }
@@ -520,10 +545,36 @@ export default function Profile(props: ProfileProps) {
                     {i18n.t("followCount")}
                 </span>
             </main>
+            <section className="profile-feed-state">
+                <button
+                    className="selected"
+                    onClick={() => {
+                        setSelectedField(SelectedField.Posts);
+                    }}
+                    ref={postsBtnRef}
+                >
+                    Posts
+                </button>
+                <button
+                    ref={likesBtnRef}
+                    onClick={() => {
+                        setSelectedField(SelectedField.Likes);
+                    }}
+                >
+                    Liked
+                </button>
+            </section>
+
             <Feed
                 profilepageRef={ref}
                 mainPage={false}
-                className="feed-merge-scroll"
+                className={`feed-merge-scroll posts-feed ${selectedFeed === SelectedField.Posts ? "" : "hidden"}`}
+            ></Feed>
+            <Feed
+                profilepageRef={ref}
+                mainPage={false}
+                profileLikes={true}
+                className={`feed-merge-scroll likes-feed ${selectedFeed === SelectedField.Likes ? "" : "hidden"}`}
             ></Feed>
         </main>
     );

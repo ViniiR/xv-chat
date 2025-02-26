@@ -64,6 +64,7 @@ export const API_ROUTES = {
     CHANGE_PASSWORD_PATH: `${API_ROOT}/user/change/password`,
     CHANGE_EMAIL_PATH: `${API_ROOT}/user/change/email`,
     CHANGE_USER_AT_PATH: `${API_ROOT}/user/change/user-at`,
+    GET_PROFILE_LIKED_POSTS_PATH: `${API_ROOT}/user/liked-posts`,
 } as const;
 
 const router = createBrowserRouter([

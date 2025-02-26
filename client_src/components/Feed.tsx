@@ -12,6 +12,7 @@ interface FeedProps {
     className?: string;
     mainPage: boolean;
     profilepageRef?: RefObject<HTMLDivElement>;
+    profileLikes?: boolean;
 }
 
 export type PostData = {
@@ -39,7 +40,7 @@ export default function Feed(props: FeedProps) {
     const [drawableImage, setDrawableImage] = useState("");
     const imgStealerRef = useRef<HTMLDivElement>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const params = useParams();
+    const params = useParams<{user: string}>();
     const [savedWindowScrollY, setSavedWindowScrollY] = useState(0);
     const [showZoomStealer, setShowZoomStealer] = useState(false);
     const postList = useSelector(
@@ -109,8 +110,14 @@ export default function Feed(props: FeedProps) {
             ) {
                 setPosts(postList);
             }
+            let url = `${API_ROUTES.FETCH_POSTS_PATH}`;
+            if (!props.mainPage && !props.profileLikes) {
+                url = `${API_ROUTES.FETCH_USER_POSTS_PATH}/${params.user}`;
+            } else if (props.profileLikes) {
+                url = `${API_ROUTES.GET_PROFILE_LIKED_POSTS_PATH}/${params.user}`;
+            }
             try {
-                const url = `${props.mainPage ? API_ROUTES.FETCH_POSTS_PATH : API_ROUTES.FETCH_USER_POSTS_PATH + (params.user ? "/" + params.user : "")}`;
+                //const url = `${props.mainPage ? API_ROUTES.FETCH_POSTS_PATH : API_ROUTES.FETCH_USER_POSTS_PATH + (params.user ? "/" + params.user : "")}`;
                 const res = await fetch(url, {
                     method: "GET",
                     mode: "cors",
