@@ -1,12 +1,15 @@
-    .not-found {
-      display: grid;
-      font-weight: 600;
-      font-size: 2rem;
-      place-content: center;
-      justify-items: center;
-      height: 100vh;
-      width: 100vw;
-      .number {
+.not-found {
+    display: grid;
+    font-weight: 600;
+    font-size: 2rem;
+    place-content: center;
+    justify-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: grey;
+    color: white !important;
+    .number {
         font-weight: 700;
-      }
     }
+    // .text {}
+}

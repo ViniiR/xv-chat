@@ -3,9 +3,24 @@ use std::path::{self, PathBuf};
 use rocket::{
     fs::NamedFile,
     request::{self, FromRequest},
-    response::Responder,
+    response::{content::RawHtml, Responder},
     Request,
 };
+
+//#[catch(404)]
+//pub async fn not_found() -> RawHtml<&'static str> {
+//    RawHtml(
+//        r#"
+//        <div id="error-root">
+//            <div id="error-number">
+//                    404
+//            </div>
+//            <div id="error-name">
+//                Not found
+//            </div>
+//        </div>"#,
+//    )
+//}
 
 #[get("/", rank = 0)]
 pub async fn index(gzip: AcceptGzip) -> ResponseFile {

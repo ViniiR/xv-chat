@@ -1,7 +1,11 @@
 import { createRoot } from "react-dom/client";
 import App from "@src/App";
 import { StrictMode } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+    createBrowserRouter,
+    Navigate,
+    RouterProvider,
+} from "react-router-dom";
 import SearchFeed from "./components/SearchFeed";
 import DMFeed from "./components/DirectMessageFeed";
 import Feed from "./components/Feed";
@@ -11,6 +15,7 @@ import SignUp from "./components/SignUp";
 import ReverseProtectedRoute from "./components/ReverseProtectedRoute";
 import { Provider } from "react-redux";
 import STORE from "@src/redux/store";
+import NotFound from "./components/NotFound";
 
 const domNode = document.getElementById("root");
 const root = createRoot(domNode!);
@@ -26,6 +31,8 @@ export const APP_ROUTES = {
     AUTH_SIGNUP: "/sign-up",
 
     EDIT_PROFILE: "/edit/profile",
+
+    NOT_FOUND: "/404",
 } as const;
 
 export const API_ROOT = process.env.API_URL_ROOT || "MISSING_API_URL_ROOT";
@@ -60,6 +67,10 @@ export const API_ROUTES = {
 } as const;
 
 const router = createBrowserRouter([
+    {
+        path: APP_ROUTES.NOT_FOUND,
+        element: <NotFound />,
+    },
     {
         path: APP_ROUTES.APP_HOME,
         element: (
@@ -117,6 +128,10 @@ const router = createBrowserRouter([
                 <App component={"EditProfile"} />
             </ProtectedRoute>
         ),
+    },
+    {
+        path: "*",
+        element: <Navigate to={APP_ROUTES.NOT_FOUND} />,
     },
 ]);
 

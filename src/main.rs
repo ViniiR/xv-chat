@@ -231,6 +231,7 @@ async fn rocket() -> _ {
                 routes::client::file
             ],
         )
+    //.register("/", catchers![not_found])
 }
 
 #[options("/<_..>")]

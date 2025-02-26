@@ -5,7 +5,6 @@ import userIcon from "@assets/user-circle-solid-108.png";
 import UserIcon from "./UserIcon";
 import { useNavigate, useParams } from "react-router-dom";
 import Feed from "./Feed";
-import NotFound from "./NotFound";
 import Loading from "./Loading";
 import i18n from "../i18n";
 import FollowPage from "@components/FullscreenMenu";
@@ -18,7 +17,7 @@ import {
     UserDataStateSelector,
 } from "../redux/store";
 import { goBackHistory } from "./Home";
-import { API_ROUTES } from "../main";
+import { API_ROUTES, APP_ROUTES } from "../main";
 
 interface ProfileProps {
     // not actually used
@@ -40,7 +39,6 @@ export default function Profile(props: ProfileProps) {
     });
     const [updateDataTrigger, setUpdateDataTrigger] = useState(false);
     const params = useParams<{ user: string }>();
-    const [notFound, setNotFound] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [isOwnProfile, setIsOwnProfile] = useState(false);
     const [isFollowingPage, setIsFollowingPage] = useState(false);
@@ -253,11 +251,11 @@ export default function Profile(props: ProfileProps) {
                         );
                     }
                 } else {
-                    setNotFound(true);
+                    navigateTo(APP_ROUTES.NOT_FOUND)
                 }
             } catch (err) {
                 console.error("unable to connect to server");
-                setNotFound(true);
+                navigateTo(APP_ROUTES.NOT_FOUND)
             } finally {
                 setIsLoading(false);
             }
@@ -280,16 +278,6 @@ export default function Profile(props: ProfileProps) {
             }
         }, 0);
     }, [isImgStealerOpen]);
-
-    if (notFound) {
-        return <NotFound />;
-    }
-
-    async function exitProfile() {
-        // i love this
-        goBackHistory();
-        //navigateTo("/");
-    }
 
     function toggleImgStealerAnimation(open: boolean) {
         // shittiest code i have ever written
@@ -453,7 +441,7 @@ export default function Profile(props: ProfileProps) {
                 <></>
             )}
             <header className="profile-header">
-                <button className="back-btn" onClick={exitProfile}>
+                <button className="back-btn" onClick={goBackHistory}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="100%"
