@@ -2,26 +2,16 @@ use std::path::{self, PathBuf};
 
 use rocket::{
     fs::NamedFile,
+    http::Status,
     request::{self, FromRequest},
-    response::{content::RawHtml, Responder},
+    response::Responder,
     Request,
 };
 
-//#[catch(404)]
-//pub async fn not_found() -> RawHtml<&'static str> {
-//    RawHtml(
-//        r#"
-//        <div id="error-root">
-//            <div id="error-number">
-//                    404
-//            </div>
-//            <div id="error-name">
-//                Not found
-//            </div>
-//        </div>"#,
-//    )
-//}
-
+#[head("/")]
+pub async fn head() -> Status {
+    Status::Ok
+}
 #[get("/", rank = 0)]
 pub async fn index(gzip: AcceptGzip) -> ResponseFile {
     if gzip.0 {
@@ -150,3 +140,18 @@ async fn get_file(file_name: &str) -> Option<NamedFile> {
 fn file_exists(file_name: &str) -> bool {
     path::Path::new(&format!("client_dist/{}", file_name)).exists()
 }
+
+//#[catch(404)]
+//pub async fn not_found() -> RawHtml<&'static str> {
+//    RawHtml(
+//        r#"
+//        <div id="error-root">
+//            <div id="error-number">
+//                    404
+//            </div>
+//            <div id="error-name">
+//                Not found
+//            </div>
+//        </div>"#,
+//    )
+//}

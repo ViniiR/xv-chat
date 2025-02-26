@@ -226,6 +226,7 @@ async fn rocket() -> _ {
         .mount(
             "/",
             routes![
+                routes::client::head,
                 routes::client::index,
                 routes::client::bundle,
                 routes::client::file
