@@ -41,7 +41,7 @@ export default function Comment({
         parentPost!.style.backgroundColor = "transparent";
 
         try {
-            const url = `${process.env.API_URL_ROOT}${API_ROUTES.LIKE_COMMENT_PATH}`;
+            const url = `${API_ROUTES.LIKE_COMMENT_PATH}`;
             const res = await fetch(url, {
                 method: "PATCH",
                 mode: "cors",
@@ -87,7 +87,7 @@ export default function Comment({
 
     async function deleteComment() {
         try {
-            const url = `${process.env.API_URL_ROOT}${process.env.DELETE_COMMENT_PATH}`;
+            const url = `${API_ROUTES.DELETE_COMMENT_PATH}`;
             const res = await fetch(url, {
                 method: "DELETE",
                 mode: "cors",

@@ -110,7 +110,7 @@ export default function Feed(props: FeedProps) {
                 setPosts(postList);
             }
             try {
-                const url = `${process.env.API_URL_ROOT}${props.mainPage ? API_ROUTES.FETCH_POSTS_PATH : API_ROUTES.FETCH_USER_POSTS_PATH + (params.user ? "/" + params.user : "")}`;
+                const url = `${props.mainPage ? API_ROUTES.FETCH_POSTS_PATH : API_ROUTES.FETCH_USER_POSTS_PATH + (params.user ? "/" + params.user : "")}`;
                 const res = await fetch(url, {
                     method: "GET",
                     mode: "cors",

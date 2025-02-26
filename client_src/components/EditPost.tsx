@@ -32,7 +32,7 @@ export default function EditPost({}: EditPostProps) {
     useEffect(() => {
         setIsLoading(true);
         async function fetchPostDetails() {
-            const url = `${process.env.API_URL_ROOT}${API_ROUTES.GET_POST_PATH}/${params.postId}`;
+            const url = `${API_ROUTES.GET_POST_PATH}/${params.postId}`;
             try {
                 const response = await fetch(url, {
                     method: "GET",
@@ -60,7 +60,7 @@ export default function EditPost({}: EditPostProps) {
     async function editPost() {
         if (blockButton) return;
         blockButton = true;
-        const url = `${process.env.API_URL_ROOT}${API_ROUTES.EDIT_POST_PATH}/${params.postId}`;
+        const url = `${API_ROUTES.EDIT_POST_PATH}/${params.postId}`;
         try {
             const response = await fetch(url, {
                 method: "PATCH",

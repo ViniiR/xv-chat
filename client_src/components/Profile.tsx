@@ -92,7 +92,7 @@ export default function Profile(props: ProfileProps) {
         if (lockFollowButton) return;
         lockFollowButton = true;
         try {
-            const url = `${process.env.API_URL_ROOT}${API_ROUTES.FOLLOW_USER_PATH}`;
+            const url = `${API_ROUTES.FOLLOW_USER_PATH}`;
             const res = await fetch(url, {
                 mode: "cors",
                 method: "PATCH",
@@ -128,7 +128,7 @@ export default function Profile(props: ProfileProps) {
         setIsLoadingFollows(true);
         if (following) {
             try {
-                const url = `${process.env.API_URL_ROOT}${process.env.FOLLOWING_DATA_PATH}/${params.user}`;
+                const url = `${API_ROUTES.FOLLOWING_DATA_PATH}/${params.user}`;
                 const res = await fetch(url, {
                     mode: "cors",
                     method: "GET",
@@ -154,7 +154,7 @@ export default function Profile(props: ProfileProps) {
             }
         } else {
             try {
-                const url = `${process.env.API_URL_ROOT}${process.env.FOLLOWERS_DATA_PATH}/${params.user}`;
+                const url = `${API_ROUTES.FOLLOWERS_DATA_PATH}/${params.user}`;
                 const res = await fetch(url, {
                     mode: "cors",
                     method: "GET",
@@ -202,7 +202,7 @@ export default function Profile(props: ProfileProps) {
     useEffect(() => {
         async function fetchUserData() {
             try {
-                const url = `${process.env.API_URL_ROOT}${process.env.GET_PROFILE_DATA_PATH}`;
+                const url = `${API_ROUTES.GET_PROFILE_DATA_PATH}`;
                 if (params.user === userProfileData.userAt) {
                     setIsLoading(false);
                 } else {

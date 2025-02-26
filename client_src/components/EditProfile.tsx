@@ -57,7 +57,7 @@ export default function EditProfile({}: EditProfileProps) {
             });
         }
         async function fetchUserData() {
-            const url = `${process.env.API_URL_ROOT}${API_ROUTES.DATA_USER_PATH}`;
+            const url = `${API_ROUTES.DATA_USER_PATH}`;
             try {
                 const res = await fetch(url, {
                     mode: "cors",
@@ -186,7 +186,7 @@ export default function EditProfile({}: EditProfileProps) {
 
     async function submitData() {
         try {
-            const url = `${process.env.API_URL_ROOT}${process.env.EDIT_PROFILE_PATH}`;
+            const url = `${API_ROUTES.EDIT_PROFILE_PATH}`;
             const res = await fetch(url, {
                 mode: "cors",
                 method: "PATCH",

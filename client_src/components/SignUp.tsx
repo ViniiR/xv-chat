@@ -100,7 +100,7 @@ export default function SignUp() {
         validateOnChange: false,
         async onSubmit(formData: SignUpSchema, { setStatus }) {
             try {
-                const url = `${process.env.API_URL_ROOT}${API_ROUTES.CREATE_USER_PATH}`;
+                const url = `${API_ROUTES.CREATE_USER_PATH}`;
                 const res = await fetch(url, {
                     mode: "cors",
                     credentials: "include",

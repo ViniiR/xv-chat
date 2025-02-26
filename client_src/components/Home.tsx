@@ -234,7 +234,7 @@ export default function Home({ setTheme, setUserAtContext }: HomeProps) {
                     followingCount: userProfileData.followingCount,
                 });
             }
-            const url = `${process.env.API_URL_ROOT}${API_ROUTES.DATA_USER_PATH}`;
+            const url = `${API_ROUTES.DATA_USER_PATH}`;
             try {
                 const res = await fetch(url, {
                     mode: "cors",
@@ -339,7 +339,7 @@ export default function Home({ setTheme, setUserAtContext }: HomeProps) {
         setIsLoadingFollows(true);
         if (following) {
             try {
-                const url = `${process.env.API_URL_ROOT}${process.env.FOLLOWING_DATA_PATH}/${currentUserData.userAt}`;
+                const url = `${API_ROUTES.FOLLOWING_DATA_PATH}/${currentUserData.userAt}`;
                 const res = await fetch(url, {
                     mode: "cors",
                     method: "GET",
@@ -363,7 +363,7 @@ export default function Home({ setTheme, setUserAtContext }: HomeProps) {
             }
         } else {
             try {
-                const url = `${process.env.API_URL_ROOT}${process.env.FOLLOWERS_DATA_PATH}/${currentUserData.userAt}`;
+                const url = `${API_ROUTES.FOLLOWERS_DATA_PATH}/${currentUserData.userAt}`;
                 const res = await fetch(url, {
                     mode: "cors",
                     method: "GET",
@@ -498,7 +498,7 @@ export default function Home({ setTheme, setUserAtContext }: HomeProps) {
 
     async function requestLogout() {
         try {
-            const url = `${process.env.API_URL_ROOT}${process.env.LOGOUT_USER_PATH}`;
+            const url = `${API_ROUTES.LOGOUT_USER_PATH}`;
             const res = await fetch(url, {
                 mode: "cors",
                 method: "POST",
@@ -515,7 +515,7 @@ export default function Home({ setTheme, setUserAtContext }: HomeProps) {
 
     async function requestDelete() {
         try {
-            const url = `${process.env.API_URL_ROOT}${process.env.DELETE_USER_PATH}`;
+            const url = `${API_ROUTES.DELETE_USER_PATH}`;
             const res = await fetch(url, {
                 mode: "cors",
                 method: "DELETE",
@@ -557,7 +557,7 @@ export default function Home({ setTheme, setUserAtContext }: HomeProps) {
 
     async function publish() {
         try {
-            const url = `${process.env.API_URL_ROOT}${process.env.PUBLISH_POST_PATH}`;
+            const url = `${API_ROUTES.PUBLISH_POST_PATH}`;
             const res = await fetch(url, {
                 method: "POST",
                 mode: "cors",

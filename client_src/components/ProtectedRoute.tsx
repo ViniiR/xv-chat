@@ -8,7 +8,7 @@ export interface ProtectedRouteProps {
 }
 
 export async function authenticated(): Promise<boolean> {
-    const url = `${process.env.API_URL_ROOT}${API_ROUTES.AUTH_PATH}`;
+    const url = `${API_ROUTES.AUTH_PATH}`;
     try {
         const res = await fetch(url, {
             mode: "cors",

@@ -47,7 +47,7 @@ export default function SearchFeed() {
         }
         async function fetchQuery() {
             try {
-                const url = `${process.env.API_URL_ROOT}${API_ROUTES.QUERY_PATH}/${query.trim()}`;
+                const url = `${API_ROUTES.QUERY_PATH}/${query.trim()}`;
                 const res = await fetch(url, {
                     mode: "cors",
                     credentials: "include",

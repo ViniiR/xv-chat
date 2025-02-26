@@ -38,10 +38,17 @@ pub async fn file(file: PathBuf, gzip: AcceptGzip) -> ResponseFile {
     if !file_exists(file.to_str().unwrap_or("")) {
         return ResponseFile::Normal(get_file("index.html").await);
     }
+
     match ext.to_str().expect("no file extension") {
-        "svg" => ResponseFile::GzipSvg(GzipSvgFile(
-            get_file(&format!("{}.gz", file.to_str().unwrap_or(""))).await,
-        )),
+        "svg" => {
+            if file_exists(&format!("{}.gz", file.to_str().unwrap_or(""))) {
+                ResponseFile::GzipSvg(GzipSvgFile(
+                    get_file(&format!("{}.gz", file.to_str().unwrap_or(""))).await,
+                ))
+            } else {
+                ResponseFile::GzipSvg(GzipSvgFile(get_file(file.to_str().unwrap_or("")).await))
+            }
+        }
         "jpeg" | "jpg" | "png" | "ico" | "gif" => {
             ResponseFile::Normal(get_file(file.to_str().unwrap_or("")).await)
         }

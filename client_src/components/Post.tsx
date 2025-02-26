@@ -100,7 +100,7 @@ export default function Post({ postDetails }: PostProps) {
         parentPost!.style.backgroundColor = "transparent";
 
         try {
-            const url = `${process.env.API_URL_ROOT}${API_ROUTES.LIKE_PATH}`;
+            const url = `${API_ROUTES.LIKE_PATH}`;
             const res = await fetch(url, {
                 method: "PATCH",
                 mode: "cors",
@@ -168,7 +168,7 @@ export default function Post({ postDetails }: PostProps) {
 
     async function deletePost() {
         try {
-            const url = `${process.env.API_URL_ROOT}${process.env.DELETE_POST_PATH}/${postDetails.postId}`;
+            const url = `${API_ROUTES.DELETE_POST_PATH}/${postDetails.postId}`;
             const res = await fetch(url, {
                 method: "DELETE",
                 credentials: "include",

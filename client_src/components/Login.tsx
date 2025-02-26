@@ -24,7 +24,7 @@ export default function Login() {
         validateOnChange: false,
         async onSubmit(formData: LoginSchema, { setStatus }) {
             try {
-                const url = `${process.env.API_URL_ROOT}${API_ROUTES.LOGIN_USER_PATH}`;
+                const url = `${API_ROUTES.LOGIN_USER_PATH}`;
                 const res = await fetch(url, {
                     mode: "cors",
                     method: "POST",

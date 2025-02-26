@@ -56,7 +56,7 @@ export function FSFormPassword({
     }) {
         setErrorBad(true);
         try {
-            const url = `${process.env.API_URL_ROOT}${API_ROUTES.CHANGE_PASSWORD_PATH}`;
+            const url = `${API_ROUTES.CHANGE_PASSWORD_PATH}`;
             const res = await fetch(url, {
                 mode: "cors",
                 credentials: "include",
@@ -183,7 +183,7 @@ export function FSFormEmail({
     async function submitUserEmail(data: { emailField: string }) {
         setErrorBad(true);
         try {
-            const url = `${process.env.API_URL_ROOT}${API_ROUTES.CHANGE_EMAIL_PATH}`;
+            const url = `${API_ROUTES.CHANGE_EMAIL_PATH}`;
             const res = await fetch(url, {
                 mode: "cors",
                 credentials: "include",
@@ -289,7 +289,7 @@ export function FSFormUserAt({
     async function submitUserAt(data: { userAtField: string }) {
         setErrorBad(true);
         try {
-            const url = `${process.env.API_URL_ROOT}${API_ROUTES.CHANGE_USER_AT_PATH}`;
+            const url = `${API_ROUTES.CHANGE_USER_AT_PATH}`;
             const res = await fetch(url, {
                 mode: "cors",
                 credentials: "include",
