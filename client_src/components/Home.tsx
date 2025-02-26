@@ -94,41 +94,41 @@ interface HomeProps {
 //}
 
 export function goBackHistory(): void {
-    const url = window.location.pathname.substring(
-        1,
-        window.location.pathname.length,
-    );
-    const path1 = "/" + url.substring(0, url.indexOf("/"));
-    console.log(path1);
-    switch (path1) {
-        case APP_ROUTES.POST:
-            location.href = "/";
-            break;
-        case APP_ROUTES.APP_HOME: // and /profileUserAt
-            location.href = "/";
-            break;
-        case APP_ROUTES.EDIT_POST:
-            location.href = "/";
-            break;
-        case APP_ROUTES.APP_SEARCH:
-            location.href = "/";
-            break;
-        case APP_ROUTES.AUTH_LOGIN:
-            history.go(-1);
-            break;
-        case APP_ROUTES.AUTH_SIGNUP:
-            history.go(-1);
-            break;
-        case APP_ROUTES.EDIT_PROFILE:
-            location.href = "/";
-            break;
-        case APP_ROUTES.APP_DIRECT_MESSAGES:
-            location.href = "/";
-            break;
-        default:
-            location.href = "/";
-            break;
-    }
+    history.back()
+    //const url = window.location.pathname.substring(
+    //    1,
+    //    window.location.pathname.length,
+    //);
+    //const path1 = "/" + url.substring(0, url.indexOf("/"));
+    //switch (path1) {
+    //    case APP_ROUTES.POST:
+    //        location.href = "/";
+    //        break;
+    //    case APP_ROUTES.APP_HOME: // and /profileUserAt
+    //        location.href = "/";
+    //        break;
+    //    case APP_ROUTES.EDIT_POST:
+    //        location.href = "/";
+    //        break;
+    //    case APP_ROUTES.APP_SEARCH:
+    //        location.href = "/";
+    //        break;
+    //    case APP_ROUTES.AUTH_LOGIN:
+    //        history.go(-1);
+    //        break;
+    //    case APP_ROUTES.AUTH_SIGNUP:
+    //        history.go(-1);
+    //        break;
+    //    case APP_ROUTES.EDIT_PROFILE:
+    //        location.href = "/";
+    //        break;
+    //    case APP_ROUTES.APP_DIRECT_MESSAGES:
+    //        location.href = "/";
+    //        break;
+    //    default:
+    //        location.href = "/";
+    //        break;
+    //}
     //if (history.length > 1) {
     //    history.go(-1);
     //} else {
