@@ -40,7 +40,7 @@ export default function Feed(props: FeedProps) {
     const [drawableImage, setDrawableImage] = useState("");
     const imgStealerRef = useRef<HTMLDivElement>(null);
     const [isLoading, setIsLoading] = useState(true);
-    const params = useParams<{user: string}>();
+    const params = useParams<{ user: string }>();
     const [savedWindowScrollY, setSavedWindowScrollY] = useState(0);
     const [showZoomStealer, setShowZoomStealer] = useState(false);
     const postList = useSelector(

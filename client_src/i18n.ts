@@ -118,6 +118,7 @@ const i18n = new I18n({
         deleteComment: "Delete Comment",
         writeSomething: "Write something",
         edited: "Edited",
+        posts: "Posts",
 
         // server
         // username / userat
@@ -254,6 +255,7 @@ const i18n = new I18n({
         deleteComment: "Deletar Comentário",
         writeSomething: "Escreva algo",
         edited: "Editado",
+        posts: "Posts",
 
         // server
         // username / userat

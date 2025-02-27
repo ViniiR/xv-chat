@@ -131,24 +131,24 @@
             }
         }
     }
-    .profile-feed-slide {
-        min-height: inherit;
-        min-width: inherit;
-        height: inherit;
-        max-width: inherit;
-        overflow-x: hidden;
-        font-weight: inherit;
-        position: inherit;
-        display: inherit;
-        flex-direction: row;
-        & > .posts-feed,
-        & > .likes-feed {
-            min-width: 100% !important;
-        }
-        & > .hide-left-feed {
-            left: -100%;
-        }
-    }
+    // .profile-feed-slide {
+    //     min-height: inherit;
+    //     min-width: inherit;
+    //     height: inherit;
+    //     max-width: inherit;
+    //     overflow-x: hidden;
+    //     font-weight: inherit;
+    //     position: inherit;
+    //     display: inherit;
+    //     flex-direction: row;
+    //     & > .posts-feed,
+    //     & > .likes-feed {
+    //         min-width: 100% !important;
+    //     }
+    //     & > .hide-left-feed {
+    //         left: -100%;
+    //     }
+    // }
 }
 .profile-dark {
     background-color: black !important;

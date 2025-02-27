@@ -72,7 +72,10 @@ export default function Profile(props: ProfileProps) {
     const [selectedFeed, setSelectedField] = useState(SelectedField.Posts);
     const postsBtnRef = useRef<HTMLButtonElement>(null);
     const likesBtnRef = useRef<HTMLButtonElement>(null);
-    const profileFeedSlideRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        setSelectedField(SelectedField.Posts);
+    }, [params]);
 
     useEffect(() => {
         if (!postsBtnRef.current || !likesBtnRef.current) return;
@@ -331,7 +334,7 @@ export default function Profile(props: ProfileProps) {
     return (
         <main
             ref={ref}
-            className={`profile-fs   ${useDarkTheme ? "profile-dark" : "profile-light"}`}
+            className={`profile-fs ${useDarkTheme ? "profile-dark" : "profile-light"}`}
         >
             {showWarning ? (
                 <FSWarning
@@ -553,7 +556,7 @@ export default function Profile(props: ProfileProps) {
                     }}
                     ref={postsBtnRef}
                 >
-                    Posts
+                    {i18n.t("posts")}
                 </button>
                 <button
                     ref={likesBtnRef}
@@ -561,21 +564,26 @@ export default function Profile(props: ProfileProps) {
                         setSelectedField(SelectedField.Likes);
                     }}
                 >
-                    Liked
+                    {i18n.t("likes")}
                 </button>
             </section>
-
-            <Feed
-                profilepageRef={ref}
-                mainPage={false}
-                className={`feed-merge-scroll posts-feed ${selectedFeed === SelectedField.Posts ? "" : "hidden"}`}
-            ></Feed>
-            <Feed
-                profilepageRef={ref}
-                mainPage={false}
-                profileLikes={true}
-                className={`feed-merge-scroll likes-feed ${selectedFeed === SelectedField.Likes ? "" : "hidden"}`}
-            ></Feed>
+            {selectedFeed === SelectedField.Posts ? (
+                <Feed
+                    key={"posts-feed-key"}
+                    profilepageRef={ref}
+                    mainPage={false}
+                    profileLikes={false}
+                    className={`feed-merge-scroll posts-feed`}
+                ></Feed>
+            ) : (
+                <Feed
+                    key={"likes-feed-key"}
+                    profilepageRef={ref}
+                    mainPage={false}
+                    profileLikes={true}
+                    className={`feed-merge-scroll likes-feed`}
+                ></Feed>
+            )}
         </main>
     );
 }
