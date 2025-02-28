@@ -16,6 +16,9 @@ import userAt from "@assets/at-regular-96.png";
 export async function translateServerErrorMessages(
     msg: string,
 ): Promise<string> {
+    if (!msg) {
+        return "";
+    }
     switch (msg.toLowerCase()) {
         // username / userat
         case "username already in use":

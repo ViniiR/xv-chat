@@ -97,6 +97,7 @@ const i18n = new I18n({
         deletePost: "Delete Post",
         editPost: "Edit Post",
         copyLink: "Copy link",
+        usernameOrEmail: "Username or Email",
 
         // datetime formats plural
         yearsFormat: "y",
@@ -234,6 +235,7 @@ const i18n = new I18n({
         deletePost: "Deletar Post",
         editPost: "Editar Post",
         copyLink: "Copiar link",
+        usernameOrEmail: "Nome de Usuário ou Email",
 
         // datetime formats plural
         yearsFormat: "a",

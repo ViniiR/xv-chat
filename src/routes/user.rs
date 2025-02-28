@@ -7,8 +7,12 @@ use crate::database::{
     connect_db, email_exists, get_email_from_id, make_jwt_claims, make_user, user::User,
     verify_password,
 };
-use crate::{validate_email, validate_minimal_user_credentials, validate_password, LoginData};
+use crate::{
+    validate_email, validate_minimal_user_credentials, validate_password, validate_user_at,
+    LoginData,
+};
 use core::str;
+use rocket::form::validate::Contains;
 use rocket::http::{Cookie, SameSite};
 use rocket::time::{Duration, OffsetDateTime};
 use rocket::{
@@ -56,6 +60,10 @@ pub async fn create(form_data: Json<User>, cookies: &CookieJar<'_>) -> Custom<&'
     data.password = data.password.trim().to_string();
     data.user_name = data.user_name.trim().to_string();
 
+    if data.user_at.starts_with('@') {
+        data.user_at.remove(0);
+    }
+
     if let Err(e) = validate_minimal_user_credentials(&data).await {
         return e;
     }
@@ -92,12 +100,25 @@ pub async fn create(form_data: Json<User>, cookies: &CookieJar<'_>) -> Custom<&'
 #[post("/user/login", format = "application/json", data = "<form_data>")]
 pub async fn login(form_data: Json<LoginData>, cookies: &CookieJar<'_>) -> Custom<&'static str> {
     let mut data: LoginData = form_data.into_inner();
-    data.email = data.email.to_lowercase().trim().to_string();
+    data.user_at_email = data.user_at_email.to_lowercase().trim().to_string();
     data.password = data.password.trim().to_string();
 
-    let res = validate_email(&data.email).await;
-    if !res.valid {
-        return Custom(Status::BadRequest, res.message);
+    if data.user_at_email.starts_with('@') {
+        data.user_at_email.remove(0);
+    }
+
+    let is_email = data.user_at_email.contains("@");
+
+    if is_email {
+        let res = validate_email(&data.user_at_email).await;
+        if !res.valid {
+            return Custom(Status::BadRequest, res.message);
+        }
+    } else {
+        let res = validate_user_at(&data.user_at_email).await;
+        if !res.valid {
+            return Custom(Status::BadRequest, res.message);
+        }
     }
 
     let res = validate_password(&data.password).await;
@@ -107,13 +128,20 @@ pub async fn login(form_data: Json<LoginData>, cookies: &CookieJar<'_>) -> Custo
 
     let pool = connect_db().await;
 
-    if !email_exists(&data.email, &pool).await
-        || !verify_password(&data.email, &data.password, &pool).await
-    {
+    let email = if is_email {
+        &data.user_at_email
+    } else {
+        let Ok(e) = database::get_email_from_user_at(&data.user_at_email, &pool).await else {
+            return Custom(Status::BadRequest, "Invalid credentials");
+        };
+        &e.to_owned()
+    };
+
+    if !email_exists(email, &pool).await || !verify_password(email, &data.password, &pool).await {
         return Custom(Status::BadRequest, "Invalid credentials");
     }
 
-    let claims = make_jwt_claims(&data.email, &pool).await;
+    let claims = make_jwt_claims(email, &pool).await;
 
     match claims {
         Ok(c) => match create_jwt(c).await {

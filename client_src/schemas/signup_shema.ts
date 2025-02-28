@@ -11,28 +11,28 @@ export type SignUpSchema = {
 
 export const signUpSchema = object().shape({
     userName: string()
+        .trim()
         .min(2, i18n.t("userNameMinLength"))
         .max(20, i18n.t("userNameMaxLength"))
-        .trim()
         .required(i18n.t("userNameRequired")),
     userAt: string()
+        .trim()
         .min(2, i18n.t("userAtMinLength"))
         .max(20, i18n.t("userAtMaxLength"))
-        .trim()
         .required(i18n.t("userAtRequired")),
     email: string()
         .email(i18n.t("invalidEmail"))
         .trim()
         .required(i18n.t("emailRequired")),
     password: string()
+        .trim()
         .min(8, i18n.t("passwordShort"))
         .max(32, i18n.t("passwordLong"))
-        .trim()
         .required(i18n.t("passwordRequired")),
     passwordConfirm: string()
+        .trim()
         .min(8, i18n.t("passwordShort"))
         .max(32, i18n.t("passwordLong"))
-        .trim()
         .oneOf([ref("password")], i18n.t("passwordNoMatch"))
         .required(i18n.t("passwordConfirmRequired")),
 });

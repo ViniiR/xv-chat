@@ -9,7 +9,7 @@ import { loginSchema, LoginSchema } from "@src/schemas/login_schema";
 import { API_ROUTES, APP_ROUTES } from "../main";
 import { useState } from "react";
 import { translateServerErrorMessages } from "./SignUp";
-import emailLight from "@assets/envelope-regular-96.png";
+import userIcon from "@assets/user-solid-96.png";
 import lockClosed from "@assets/lock-solid-96.png";
 
 export default function Login() {
@@ -17,7 +17,7 @@ export default function Login() {
     const navigateTo = useNavigate();
     const formik: FormikProps<LoginSchema> = useFormik({
         initialValues: {
-            email: "",
+            userAtEmail: "",
             password: "",
         },
         validationSchema: loginSchema,
@@ -34,16 +34,13 @@ export default function Login() {
                     },
                     body: JSON.stringify(formData),
                 });
+                const text = await res.text();
                 if (res.status < 200 || res.status > 299) {
                     setIsStatusGood(false);
                     if (res.status === 503) {
                         setStatus(i18n.t("serverInactive"));
                     } else {
-                        setStatus(
-                            await translateServerErrorMessages(
-                                await res.text(),
-                            ),
-                        );
+                        setStatus(await translateServerErrorMessages(text));
                     }
                 } else {
                     setIsStatusGood(true);
@@ -52,7 +49,7 @@ export default function Login() {
                 }
             } catch (err) {
                 setIsStatusGood(false);
-                setStatus(translateServerErrorMessages(err as string));
+                setStatus(await translateServerErrorMessages(err as string));
             }
         },
     });
@@ -66,22 +63,22 @@ export default function Login() {
                         onChange={(e) => {
                             formik.handleChange(e);
                             formik.setErrors({
-                                email: "",
+                                userAtEmail: "",
                                 password: "",
                             });
                             formik.setStatus("");
                         }}
-                        formikError={formik.errors.email}
+                        formikError={formik.errors.userAtEmail}
                         type="text"
-                        id="email"
-                        label={i18n.t("email")}
-                        icon={emailLight}
+                        id="userAtEmail"
+                        label={i18n.t("usernameOrEmail")}
+                        icon={userIcon}
                     />
                     <Input
                         onChange={(e) => {
                             formik.handleChange(e);
                             formik.setErrors({
-                                email: "",
+                                userAtEmail: "",
                                 password: "",
                             });
                             formik.setStatus("");

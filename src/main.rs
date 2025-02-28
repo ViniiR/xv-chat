@@ -15,8 +15,8 @@ use rocket::{
 
 #[derive(Debug, Deserialize, Serialize)]
 struct LoginData {
-    #[serde(rename = "email")]
-    pub email: String,
+    #[serde(rename = "userAtEmail")]
+    pub user_at_email: String,
     #[serde(rename = "password")]
     pub password: String,
 }
