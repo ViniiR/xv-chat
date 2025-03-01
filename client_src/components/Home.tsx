@@ -94,7 +94,7 @@ interface HomeProps {
 //}
 
 export function goBackHistory(): void {
-    history.back()
+    history.back();
     //const url = window.location.pathname.substring(
     //    1,
     //    window.location.pathname.length,
@@ -555,7 +555,10 @@ export default function Home({ setTheme, setUserAtContext }: HomeProps) {
         }, 0);
     }
 
+    let alreadyPublished = false;
     async function publish() {
+        if (alreadyPublished) return;
+        alreadyPublished = true;
         try {
             const url = `${API_ROUTES.PUBLISH_POST_PATH}`;
             const res = await fetch(url, {
