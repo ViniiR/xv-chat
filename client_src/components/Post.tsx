@@ -7,7 +7,7 @@ import i18n from "../i18n";
 import { API_ROUTES, APP_ROUTES } from "../main";
 import { UserAtContext } from "../contexts/UserAtContext";
 import { intlFormatDistance } from "date-fns";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { alterPostLike, setFSPost } from "../redux/store";
 
 export const USER_AT_REGEX_PATTERN =
@@ -88,6 +88,7 @@ export default function Post({ postDetails }: PostProps) {
     }
 
     async function toggleLike(e: MouseEvent) {
+        if (postDetails.postId === "0") return;
         e.stopPropagation();
         const likes = hasSetLike ? likesCount - 1 : likesCount + 1;
         const setLike = !hasSetLike;
@@ -167,6 +168,7 @@ export default function Post({ postDetails }: PostProps) {
     const date = new Date(Number(postDetails.unixTime));
 
     async function deletePost() {
+        if (postDetails.postId === "0") return;
         try {
             const url = `${API_ROUTES.DELETE_POST_PATH}/${postDetails.postId}`;
             const res = await fetch(url, {
@@ -188,6 +190,7 @@ export default function Post({ postDetails }: PostProps) {
             <li
                 className={`post ${useDarkTheme ? "post-dark" : "post-light"}`}
                 onClick={(e) => {
+                    if (postDetails.postId === "0") return;
                     const isSlideMenuOpen =
                         (document.querySelector(".slide-menu") as HTMLElement)
                             ?.style.left == "0px";
@@ -249,6 +252,7 @@ export default function Post({ postDetails }: PostProps) {
                     >
                         <button
                             onClick={() => {
+                                if (postDetails.postId === "0") return;
                                 navigator.clipboard.writeText(
                                     `${window.location.href}post/${postDetails.postId}`,
                                 );
@@ -276,6 +280,7 @@ export default function Post({ postDetails }: PostProps) {
                             <>
                                 <button
                                     onClick={() => {
+                                        if (postDetails.postId === "0") return;
                                         navigateTo(
                                             `${APP_ROUTES.EDIT_POST}/${postDetails.postId}`,
                                         );

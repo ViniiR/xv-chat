@@ -25,12 +25,14 @@ export default function Comment({
     const postMenuRef = useRef<HTMLDivElement>(null);
 
     function navigateToProfile(e: MouseEvent) {
+        if (postDetails.postId === "0") return;
         e.preventDefault();
         e.stopPropagation();
         navigateTo(`/${postDetails.userAt}`);
     }
 
     async function toggleLike(e: MouseEvent) {
+        if (postDetails.postId === "0") return;
         e.stopPropagation();
         setLikesCount(hasSetLike ? likesCount - 1 : likesCount + 1);
         setHasSetLike(!hasSetLike);
@@ -86,6 +88,7 @@ export default function Comment({
     const date = new Date(Number(postDetails.unixTime));
 
     async function deleteComment() {
+        if (postDetails.postId === "0") return;
         try {
             const url = `${API_ROUTES.DELETE_COMMENT_PATH}`;
             const res = await fetch(url, {

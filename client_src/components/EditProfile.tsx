@@ -203,10 +203,10 @@ export default function EditProfile({}: EditProfileProps) {
             });
             const status = res.status;
             if (status > 199 && status < 300) {
-                goBackHistory()
+                goBackHistory();
                 setServerDiagnostics(i18n.t("profileDataOk"));
-            //} else {
-            //    console.log(await res.text());
+                //} else {
+                //    console.log(await res.text());
             }
         } catch (err) {
             console.error("could not communicate with the server");
@@ -250,6 +250,7 @@ export default function EditProfile({}: EditProfileProps) {
                                 >
                                     {croppableImg && (
                                         <img
+                                            draggable={false}
                                             ref={croppingRef}
                                             onLoad={handleLoad}
                                             src={croppableImg}

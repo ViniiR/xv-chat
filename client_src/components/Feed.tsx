@@ -116,8 +116,8 @@ export default function Feed(props: FeedProps) {
             } else if (props.profileLikes) {
                 url = `${API_ROUTES.GET_PROFILE_LIKED_POSTS_PATH}/${params.user}`;
             }
+            //const url = `${props.mainPage ? API_ROUTES.FETCH_POSTS_PATH : API_ROUTES.FETCH_USER_POSTS_PATH + (params.user ? "/" + params.user : "")}`;
             try {
-                //const url = `${props.mainPage ? API_ROUTES.FETCH_POSTS_PATH : API_ROUTES.FETCH_USER_POSTS_PATH + (params.user ? "/" + params.user : "")}`;
                 const res = await fetch(url, {
                     method: "GET",
                     mode: "cors",
@@ -132,6 +132,7 @@ export default function Feed(props: FeedProps) {
                 if (!body.Ok) {
                     throw new Error("failed");
                 }
+                console.log("refetched");
                 if (status === 200) {
                     (async function () {
                         if (
